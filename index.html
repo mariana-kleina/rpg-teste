@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Next - Acesso ao Jogo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet"> 
+
+    <style>
+        body { 
+            font-family: 'Cinzel', serif; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #0d0d0d; 
+            color: #d4a959; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .container { 
+            text-align: center; 
+            padding: 50px; 
+            background-color: #1c1c1c; 
+            border-radius: 4px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.8); 
+            border: 2px solid #582e0e; 
+            max-width: 600px;
+        }
+        h1 {
+            color: #ffcc66; 
+            font-size: 2.8em;
+            text-shadow: 1px 1px 2px #582e0e; 
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        p {
+            font-size: 1.1em;
+            color: #cccccc;
+            font-family: Arial, sans-serif; 
+        }
+        
+        button { 
+            padding: 18px 35px; 
+            font-size: 1.2em; 
+            color: white; 
+            border: 1px solid #582e0e; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin-top: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px #000000;
+        }
+        #discord-login-button { 
+            background-color: #5865F2; 
+            box-shadow: 0 4px #454ecf;
+        }
+        #discord-login-button:hover {
+            background-color: #454ecf;
+        }
+        #checkout-button { 
+            background-color: #8b0000; 
+            box-shadow: 0 4px #5e0000;
+        }
+        #checkout-button:hover {
+            background-color: #5e0000;
+        }
+        #checkout-button:disabled { 
+            background-color: #3d3d3d; 
+            cursor: not-allowed; 
+            box-shadow: none;
+        }
+        #user-status { 
+            margin-bottom: 25px; 
+            font-size: 1.3em; 
+            color: #d4a959; 
+        }
+        .spam-alert {
+            margin-top: 35px;
+            font-size: 0.9em;
+            color: #fffacd; 
+            border: 1px solid #8b0000;
+            padding: 12px;
+            border-radius: 4px;
+            background-color: #2b1818;
+            font-family: Arial, sans-serif;
+        }
+
+        .status-message {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+        .status-success {
+            background-color: #0b2e13;
+            color: #a4ffb6;
+            border: 1px solid #3d884a;
+        }
+        .status-cancel {
+            background-color: #3d1a1a;
+            color: #ff8e8e;
+            border: 1px solid #883d3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Entrada para a Aventura</h1>
+        <p>Garanta seu acesso exclusivo para <strong>participar das mesas de RPG</strong>.</p>
+        
+        <div id="user-status">
+            <p>Conecte seu token de aventureiro Discord para prosseguir.</p>
+        </div>
+
+        <button id="discord-login-button">Login com o Discord</button>
+        <button id="checkout-button" disabled>Desbloquear Acesso ao Jogo</button>
+
+        <div id="status-display">
+            </div>
+
+        <div class="spam-alert">
+            <p>📜 <strong>Aviso do Mestre:</strong> O pergaminho (link de convite) será enviado para seu e-mail.</p>
+            <p>Verifique o <strong>baú de Lixo Eletrônico/SPAM</strong> para não perder sua entrada na Guilda!</p>
+        </div>
+    </div>
+
+    <script>
+        const discordLoginButton = document.getElementById('discord-login-button');
+        const checkoutButton = document.getElementById('checkout-button');
+        const userStatusDiv = document.getElementById('user-status');
+        const statusDisplayDiv = document.getElementById('status-display');
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+
+        function displayStatusMessage(status) {
+            let message = '';
+            let className = '';
+
+            if (status === 'success') {
+                message = '✨ Sua Jornada Começou! O pagamento foi confirmado. Seu pergaminho (link de convite) foi enviado para seu e-mail (e verifique o baú de spam!).';
+                className = 'status-success';
+            } else if (status === 'cancel') {
+                message = '⚔️ Jornada Interrompida. Você cancelou a assinatura. A entrada para a aventura aguarda seu retorno.';
+                className = 'status-cancel';
+            }
+
+            if (message) {
+                statusDisplayDiv.innerHTML = `<div class="status-message ${className}">${message}</div>`;
+            }
+        }
+
+        window.onload = async () => {
+            if (status) {
+                displayStatusMessage(status);
+            }
+
+            try {
+                const response = await fetch('/get-user-status');
+                const data = await response.json();
+
+                if (data.loggedIn) {
+                    userStatusDiv.innerHTML = `<p>PRONTO! Aventureiro ${data.user.username}**, sua identidade foi reconhecida.</p><p>Assine para desbloquear seu acesso às mesas.</p>`;
+                    discordLoginButton.style.display = 'none';
+                    checkoutButton.disabled = false;
+                }
+            } catch (error) {
+                console.error("Erro ao verificar status do usuário:", error);
+            }
+        };
+
+        discordLoginButton.addEventListener('click', () => {
+            window.location.href = '/auth/discord';
+        });
+        
+        checkoutButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/create-checkout-session', { method: 'POST' });
+                const session = await response.json();
+                
+                if (session.url) {
+                    window.location.href = session.url;
+                } else {
+                    alert(session.error.message);
+                }
+            } catch (error) {
+                console.error("Erro:", error);
+            }
+        });
+    </script>
+</body>
+</html>
