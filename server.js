@@ -85,13 +85,11 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'subscription',
             line_items: [{ 
                 price: priceId, 
-                quantity: 1,
-                description: 'Assinatura RPG Next Teste - Acesso ao Jogo' 
+                quantity: 1
             }],
             subscription_data: {
                 metadata: { discord_id: discordId }
             },
-            
             success_url: PUBLIC_BASE_URL + '/?status=success',
             cancel_url: PUBLIC_BASE_URL + '/?status=cancel',
         });
