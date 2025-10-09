@@ -1,4 +1,3 @@
-
 // 1. Importações e Configuração Inicial
 require('dotenv').config();
 const express = require('express');
@@ -10,6 +9,7 @@ const session = require('express-session');
 
 const app = express();
 const PORT = 3000;
+const PUBLIC_BASE_URL = 'https://rpg-teste.vercel.app'; 
 
 // 2. Configuração dos Middlewares
 app.use(cors());
@@ -36,11 +36,11 @@ app.get('/get-user-status', (req, res) => {
 
 // 5. Rota para iniciar a autenticação com o Discord
 app.get('/auth/discord', (req, res) => {
-    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent('http://localhost:3000/auth/discord/callback')}&response_type=code&scope=identify`;
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(PUBLIC_BASE_URL + '/auth/discord/callback')}&response_type=code&scope=identify`;
     res.redirect(discordAuthUrl);
 });
 
-// 6. Rota de Callback (Onde o Discord nos envia o usuário de volta)
+// 6. Rota de Callback 
 app.get('/auth/discord/callback', async (req, res) => {
     const code = req.query.code;
     if (!code) return res.status(400).send("Erro: código de autorização não encontrado.");
@@ -52,7 +52,7 @@ app.get('/auth/discord/callback', async (req, res) => {
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
                 grant_type: 'authorization_code',
                 code: code,
-                redirect_uri: 'http://localhost:3000/auth/discord/callback',
+                redirect_uri: PUBLIC_BASE_URL + '/auth/discord/callback',
             }), {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             }
@@ -91,9 +91,9 @@ app.post('/create-checkout-session', async (req, res) => {
             subscription_data: {
                 metadata: { discord_id: discordId }
             },
-        
-            success_url: 'http://localhost:3000/?status=success',
-            cancel_url: 'http://localhost:3000/?status=cancel',
+            
+            success_url: PUBLIC_BASE_URL + '/?status=success',
+            cancel_url: PUBLIC_BASE_URL + '/?status=cancel',
         });
         res.json({ url: session.url });
     } catch (error) {
@@ -104,4 +104,4 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 // 8. Inicia o servidor
-app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT} (Acesse pelo Vercel: ${PUBLIC_BASE_URL})`));
