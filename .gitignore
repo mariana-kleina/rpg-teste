@@ -1,0 +1,5 @@
+# Segredos de Acesso e Variáveis de Ambiente
+.env
+
+# Dependências
+node_modules/
