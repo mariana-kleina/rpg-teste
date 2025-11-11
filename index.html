@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG Next - Acesso ao Jogo</title>
+    <title>RPG Next - Portal da Guilda</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet"> 
 
     <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body { 
-            font-family: 'Cinzel', serif; 
+            font-family: 'Merriweather', serif; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -25,11 +30,13 @@
             padding: 50px; 
             background-color: #1c1c1c; 
             border-radius: 4px; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.8); 
+            box-shadow: 0 0 30px rgba(0,0,0,0.9); 
             border: 2px solid #582e0e; 
             max-width: 600px;
+            animation: fadeIn 0.8s ease-out; 
         }
         h1 {
+            font-family: 'Cinzel', serif; 
             color: #ffcc66; 
             font-size: 2.8em;
             text-shadow: 1px 1px 2px #582e0e; 
@@ -39,40 +46,70 @@
         p {
             font-size: 1.1em;
             color: #cccccc;
-            font-family: Arial, sans-serif; 
+            font-family: 'Merriweather', serif; 
+            line-height: 1.6em; 
         }
         
         button { 
             padding: 18px 35px; 
             font-size: 1.2em; 
             color: white; 
-            border: 1px solid #582e0e; 
+            border: none; 
             border-radius: 4px; 
             cursor: pointer; 
             margin-top: 25px;
             font-weight: bold;
-            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif; 
+            text-transform: uppercase;
+            transition: all 0.2s ease-in-out; 
             box-shadow: 0 4px #000000;
         }
+
+        button:hover {
+            transform: scale(1.05); 
+        }
+        button:active {
+            transform: scale(0.95);
+            box-shadow: none;
+        }
+
         #discord-login-button { 
             background-color: #5865F2; 
             box-shadow: 0 4px #454ecf;
         }
         #discord-login-button:hover {
-            background-color: #454ecf;
+            background-color: #4a56d1;
+            transform: scale(1.05);
         }
+        
         #checkout-button { 
-            background-color: #8b0000; 
-            box-shadow: 0 4px #5e0000;
+            background-color: #d4a959; 
+            color: #1c1c1c; 
+            box-shadow: 0 4px #8c6d31;
         }
         #checkout-button:hover {
-            background-color: #5e0000;
+            background-color: #ffcc66;
+            transform: scale(1.05);
         }
         #checkout-button:disabled { 
             background-color: #3d3d3d; 
+            color: #777;
             cursor: not-allowed; 
             box-shadow: none;
+            transform: none;
         }
+
+        .button-success {
+            background-color: #28a745 !important;
+            color: white !important;
+            box-shadow: 0 4px #1a6c2e !important;
+            cursor: not-allowed !important;
+        }
+        .button-success:hover {
+            background-color: #218838 !important;
+            transform: none !important;
+        }
+
         #user-status { 
             margin-bottom: 25px; 
             font-size: 1.3em; 
@@ -86,7 +123,11 @@
             padding: 12px;
             border-radius: 4px;
             background-color: #2b1818;
-            font-family: Arial, sans-serif;
+            font-family: 'Merriweather', serif; 
+        }
+        .spam-alert p {
+            font-family: 'Merriweather', serif;
+            margin: 5px 0;
         }
 
         .status-message {
@@ -94,7 +135,8 @@
             padding: 20px;
             border-radius: 4px;
             font-weight: bold;
-            font-family: Arial, sans-serif;
+            font-family: 'Merriweather', serif;
+            font-size: 1.1em;
         }
         .status-success {
             background-color: #0b2e13;
@@ -110,22 +152,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>Entrada para a Aventura</h1>
-        <p>Garanta seu acesso exclusivo para <strong>participar das mesas de RPG</strong>.</p>
+        <h1>O Portal da Guilda</h1>
+        <p>Aventureiro, sua saga está prestes a começar. Autentique-se com o Discord e forje sua assinatura para entrar nas mesas lendárias do RPG Next.</p>
         
         <div id="user-status">
-            <p>Conecte seu token de aventureiro Discord para prosseguir.</p>
+            <p>O Mestre da Guilda precisa ver sua identificação. Conecte-se com o Discord para provar seu valor.</p>
         </div>
 
-        <button id="discord-login-button">Login com o Discord</button>
-        <button id="checkout-button" disabled>Desbloquear Acesso ao Jogo</button>
+        <button id="discord-login-button">Autenticar com Discord</button>
+        <button id="checkout-button" disabled>Forjar Assinatura</button>
 
         <div id="status-display">
-            </div>
+        </div>
 
         <div class="spam-alert">
             <p>📜 <strong>Aviso do Mestre:</strong> O pergaminho (link de convite) será enviado para seu e-mail.</p>
-            <p>Verifique o <strong>baú de Lixo Eletrônico/SPAM</strong> para não perder sua entrada na Guilda!</p>
+            <p>Verifique o <strong>baú de Lixo Eletrônico/SPAM</strong> para não perder sua entrada!</p>
         </div>
     </div>
 
@@ -142,10 +184,17 @@
             let className = '';
 
             if (status === 'success') {
-                message = '✨ Sua Jornada Começou! O pagamento foi confirmado. Seu pergaminho (link de convite) foi enviado para seu e-mail (e verifique o baú de spam!).';
+                message = '✨ Portal Ativado! O pagamento foi selado. Um corvo mensageiro foi enviado ao seu e-mail com o pergaminho de acesso (verifique o Lixo Eletrônico!).';
                 className = 'status-success';
+
+                if (checkoutButton) {
+                    checkoutButton.innerText = "Acesso Desbloqueado";
+                    checkoutButton.disabled = true;
+                    checkoutButton.classList.add('button-success'); 
+                }
+
             } else if (status === 'cancel') {
-                message = '⚔️ Jornada Interrompida. Você cancelou a assinatura. A entrada para a aventura aguarda seu retorno.';
+                message = '⚔️ Aventura Pausada. Você guardou sua espada por enquanto. Os portais estarão fechados até seu retorno.';
                 className = 'status-cancel';
             }
 
@@ -164,12 +213,16 @@
                 const data = await response.json();
 
                 if (data.loggedIn) {
-                    userStatusDiv.innerHTML = `<p>PRONTO! Aventureiro ${data.user.username}**, sua identidade foi reconhecida.</p><p>Assine para desbloquear seu acesso às mesas.</p>`;
-                    discordLoginButton.style.display = 'none';
-                    checkoutButton.disabled = false;
+                    userStatusDiv.innerHTML = `<p>Saudações, <strong>${data.user.username}</strong>! Sua identidade foi confirmada.</p><p>Agora, ative sua Pedra Rúnica (Assinatura) para abrir os portais das mesas.</p>`;
+                    discordLoginButton.style.display = 'none'; 
+                    
+                    if (status !== 'success') {
+                         checkoutButton.disabled = false; 
+                    }
                 }
             } catch (error) {
                 console.error("Erro ao verificar status do usuário:", error);
+                userStatusDiv.innerHTML = "<p>Ocorreu um erro ao contatar a guilda. Tente recarregar a página.</p>";
             }
         };
 
@@ -183,12 +236,12 @@
                 const session = await response.json();
                 
                 if (session.url) {
-                    window.location.href = session.url;
+                    window.location.href = session.url; 
                 } else {
                     alert(session.error.message);
                 }
             } catch (error) {
-                console.error("Erro:", error);
+                console.error("Erro ao criar sessão de checkout:", error);
             }
         });
     </script>
