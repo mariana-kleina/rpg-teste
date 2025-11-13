@@ -10,13 +10,13 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// IMPORTANTE: aqui deve ser seu domínio correto no Vercel
+// SEU DOMÍNIO CORRETO NO VERCEL:
 const PUBLIC_BASE_URL = 'https://rpg-teste.vercel.app';
 
 // 2. Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname))); 
+app.use(express.static(path.join(__dirname)));
 
 app.use(session({
     secret: process.env.SESSION_SECRET || "super-secret-key",
@@ -24,29 +24,25 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-
 // 3. Página principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
-// 4. Checar status de login (se você quiser usar no futuro)
+// 4. Checar status de login
 app.get('/get-user-status', (req, res) => {
     if (req.session.discordUser) {
-        res.json({ loggedIn: true, user: req.session.discordUser });
-    } else {
-        res.json({ loggedIn: false });
+        return res.json({
+            loggedIn: true,
+            user: req.session.discordUser
+        });
     }
+    res.json({ loggedIn: false });
 });
 
-
-// 5. Iniciar autenticação com o Discord
+// 5. Autenticação Discord
 app.get('/auth/discord', (req, res) => {
-
-    const redirectUri = encodeURIComponent(
-        PUBLIC_BASE_URL + '/auth/discord/callback'
-    );
+    const redirectUri = encodeURIComponent(PUBLIC_BASE_URL + '/auth/discord/callback');
 
     const discordAuthUrl =
         `https://discord.com/api/oauth2/authorize` +
@@ -58,8 +54,7 @@ app.get('/auth/discord', (req, res) => {
     res.redirect(discordAuthUrl);
 });
 
-
-// 6. Callback do Discord (onde o MILAGRE acontece)
+// 6. Callback do Discord
 app.get('/auth/discord/callback', async (req, res) => {
     const code = req.query.code;
 
@@ -68,7 +63,7 @@ app.get('/auth/discord/callback', async (req, res) => {
     }
 
     try {
-        // Trocar o code pelo token
+        // trocar code por access token
         const tokenResponse = await axios.post(
             'https://discord.com/api/oauth2/token',
             new URLSearchParams({
@@ -83,7 +78,7 @@ app.get('/auth/discord/callback', async (req, res) => {
 
         const accessToken = tokenResponse.data.access_token;
 
-        // Buscar dados do usuário
+        // buscar usuário
         const userResponse = await axios.get(
             'https://discord.com/api/users/@me',
             { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -92,66 +87,59 @@ app.get('/auth/discord/callback', async (req, res) => {
         const username = userResponse.data.username;
         const discordId = userResponse.data.id;
 
-        // Guardar na sessão
-        req.session.discordUser = { 
-            id: discordId, 
-            username: username 
+        // salvar sessão
+        req.session.discordUser = {
+            id: discordId,
+            username: username
         };
 
-        // Redirecionar para o front com os parâmetros necessários
-        res.redirect(
-            `/?username=${encodeURIComponent(username)}&discord_id=${encodeURIComponent(discordId)}`
-        );
+        // redirecionar para o site SEM parâmetros
+        res.redirect('/');
 
     } catch (error) {
-        console.error("Erro na autenticação com o Discord:", 
+        console.error("Erro autenticação Discord:",
             error.response ? error.response.data : error.message
         );
         res.status(500).send("Erro ao autenticar com o Discord.");
     }
 });
 
-
-// 7. Criar sessão de pagamento do Stripe
+// 7. Criar Checkout do Stripe
 app.post('/create-checkout-session', async (req, res) => {
-
-    // Impede compra sem login
     if (!req.session.discordUser || !req.session.discordUser.id) {
         return res.status(400).json({
             error: { message: "Você precisa autenticar com o Discord antes de assinar." }
         });
     }
 
-    const priceId = 'price_1S0sEOI3XjYyzTqFx516rYmp';
     const discordId = req.session.discordUser.id;
+    const priceId = 'price_1S0sEOI3XjYyzTqFx516rYmp';
 
     try {
         const sessionStripe = await stripe.checkout.sessions.create({
             mode: 'subscription',
-
-            line_items: [
-                { price: priceId, quantity: 1 }
-            ],
+            line_items: [{ price: priceId, quantity: 1 }],
 
             subscription_data: {
                 metadata: { discord_id: discordId }
             },
 
+            client_reference_id: discordId,
+
             success_url: `${PUBLIC_BASE_URL}/?status=success`,
-            cancel_url: `${PUBLIC_BASE_URL}/?status=cancel`
+            cancel_url: `${PUBLIC_BASE_URL}/?status=cancel`,
         });
 
         res.json({ url: sessionStripe.url });
 
     } catch (error) {
-        console.error("Erro ao criar sessão do Stripe:", error);
+        console.error("Erro Stripe:", error);
         res.status(500).json({ error: { message: error.message } });
     }
 });
 
-
 // 8. Inicializar servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
-    console.log(`Acesse no Vercel: ${PUBLIC_BASE_URL}`);
+    console.log(`Online no Vercel: ${PUBLIC_BASE_URL}`);
 });
