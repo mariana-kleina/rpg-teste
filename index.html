@@ -1,249 +1,362 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPG Next - Portal da Guilda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet"> 
-
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        body { 
-            font-family: 'Merriweather', serif; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            background-color: #0d0d0d; 
-            color: #d4a959; 
-            margin: 0; 
-            padding: 20px;
+        body {
+            background-color: #121212; 
+            color: #ccc; 
+            font-family: 'Lato', sans-serif; 
+            line-height: 1.6;
+            min-height: 100vh;
         }
-        .container { 
-            text-align: center; 
-            padding: 50px; 
-            background-color: #1c1c1c; 
-            border-radius: 4px; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.9); 
-            border: 2px solid #582e0e; 
-            max-width: 600px;
-            animation: fadeIn 0.8s ease-out; 
+
+        h1, h2, h3, .cta-button, header a {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: #D4AF37; 
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
-        h1 {
-            font-family: 'Cinzel', serif; 
-            color: #ffcc66; 
-            font-size: 2.8em;
-            text-shadow: 1px 1px 2px #582e0e; 
-            margin-bottom: 10px;
-            text-transform: uppercase;
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #D4AF37;
         }
-        p {
-            font-size: 1.1em;
-            color: #cccccc;
-            font-family: 'Merriweather', serif; 
-            line-height: 1.6em; 
+
+        header .logo {
+            font-size: 1.8em;
+            text-decoration: none;
         }
-        
-        button { 
-            padding: 18px 35px; 
+
+        header nav a {
+            font-size: 1em;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #fff;
+            border-color: #D4AF37;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero {
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5em; 
+            margin-bottom: 20px;
+        }
+
+        .hero .subtitle {
             font-size: 1.2em; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            margin-top: 25px;
-            font-weight: bold;
-            font-family: 'Cinzel', serif; 
-            text-transform: uppercase;
-            transition: all 0.2s ease-in-out; 
-            box-shadow: 0 4px #000000;
+            color: #fff;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
         }
 
-        button:hover {
-            transform: scale(1.05); 
+        .cta-button {
+            display: inline-block;
+            background-color: #D4AF37;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
-        button:active {
-            transform: scale(0.95);
+
+        .cta-button:hover {
+            background-color: #f0c84b; 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+
+
+        .cta-button.secondary {
+            background-color: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+        }
+
+        .cta-button.secondary:hover {
+            background-color: #D4AF37;
+            color: #1a1a1a;
+        }
+
+        .cta-button:disabled {
+            background-color: #555;
+            border-color: #555;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
             box-shadow: none;
         }
 
-        #discord-login-button { 
-            background-color: #5865F2; 
-            box-shadow: 0 4px #454ecf;
-        }
-        #discord-login-button:hover {
-            background-color: #4a56d1;
-            transform: scale(1.05);
+        .steps {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
         }
         
-        #checkout-button { 
-            background-color: #d4a959; 
-            color: #1c1c1c; 
-            box-shadow: 0 4px #8c6d31;
-        }
-        #checkout-button:hover {
-            background-color: #ffcc66;
-            transform: scale(1.05);
-        }
-        #checkout-button:disabled { 
-            background-color: #3d3d3d; 
-            color: #777;
-            cursor: not-allowed; 
-            box-shadow: none;
-            transform: none;
+        .steps h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
         }
 
-        .button-success {
-            background-color: #28a745 !important;
-            color: white !important;
-            box-shadow: 0 4px #1a6c2e !important;
-            cursor: not-allowed !important;
-        }
-        .button-success:hover {
-            background-color: #218838 !important;
-            transform: none !important;
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        #user-status { 
-            margin-bottom: 25px; 
-            font-size: 1.3em; 
-            color: #d4a959; 
-        }
-        .spam-alert {
-            margin-top: 35px;
-            font-size: 0.9em;
-            color: #fffacd; 
-            border: 1px solid #8b0000;
-            padding: 12px;
-            border-radius: 4px;
-            background-color: #2b1818;
-            font-family: 'Merriweather', serif; 
-        }
-        .spam-alert p {
-            font-family: 'Merriweather', serif;
-            margin: 5px 0;
+        .step-card {
+            flex-basis: 30%;
+            min-width: 250px;
         }
 
-        .status-message {
+        .step-card h3 {
+            font-size: 1.4em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .aventuras h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .mesas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
             margin-top: 30px;
+        }
+
+        .mesa-card {
+            background-color: #1a1a1a;
+            border: 2px solid #D4AF37;
+            border-radius: 8px;
             padding: 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Merriweather', serif;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left; 
+        }
+
+        .mesa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .mesa-card h3 {
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        .mesa-card p {
+            font-size: 0.9em;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .mesa-card .cta-button {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .aviso {
+            font-size: 0.9em;
+            color: #D4AF37;
+            background-color: rgba(212, 175, 55, 0.05);
+            border: 1px dashed #D4AF37;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .success-message {
+            display: none; 
+            background-color: #28a745; 
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 5px;
             font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
         }
-        .status-success {
-            background-color: #0b2e13;
-            color: #a4ffb6;
-            border: 1px solid #3d884a;
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background-color: #1a1a1a;
+            border-top: 1px solid #333;
+            font-size: 0.9em;
         }
-        .status-cancel {
-            background-color: #3d1a1a;
-            color: #ff8e8e;
-            border: 1px solid #883d3d;
-        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>O Portal da Guilda</h1>
-        <p>Aventureiro, sua saga está prestes a começar. Autentique-se com o Discord e forje sua assinatura para entrar nas mesas lendárias do RPG Next.</p>
+
+    <header>
+        <a href="#" class="logo">RPG NEXT</a>
+        <nav>
+            <a href="#aventuras">Ver Mesas</a>
+            <a href="https://discord.gg/d9Ym4P9zNw" target="_blank">Comunidade</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero container">
+            <h1>O PORTAL DA GUILDA</h1>
+            <p class="subtitle">Aventureiro, a sua saga está prestes a começar. Autentique-se com a sua conta do Discord e forje a sua assinatura para entrar nas mesas lendárias do RPG Next.</p>
+            
+            <a href="/auth/discord" class="cta-button secondary" id="auth-button">Autenticar com Discord</a>
+
+            <div id="welcome-message" style="display: none;">
+                <h2>Saudações, <span id="username">Aventureiro</span>!</h2>
+                <p class="subtitle">Sua identidade foi confirmada. Agora, escolha uma aventura abaixo e forje sua assinatura para abrir os portais das mesas.</p>
+            </div>
+        </div>
+
+        <div class="steps">
+            <div class="container">
+                <h2>Sua Jornada Começa</h2>
+                <div class="steps-container">
+                    <div class="step-card">
+                        <h3>1. Autentique-se</h3>
+                        <p>Clique no botão acima para ligar a sua conta do Discord ao nosso portal.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>2. Forje sua Assinatura</h3>
+                        <p>Escolha uma das mesas lendárias abaixo e complete o pagamento seguro via Stripe.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>3. Junte-se à Guilda</h3>
+                        <p>Receberá um e-mail com o link do Discord. O seu cargo será atribuído automaticamente!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <div id="user-status">
-            <p>O Mestre da Guilda precisa ver sua identificação. Conecte-se com o Discord para provar seu valor.</p>
-        </div>
+        <div class="aventuras container" id="aventuras">
+            <h2>Mesas Disponíveis</h2>
 
-        <button id="discord-login-button">Autenticar com Discord</button>
-        <button id="checkout-button" disabled>Forjar Assinatura</button>
+            <div class="success-message" id="success-message">
+                ⚡ Portal Ativado! O pagamento foi selado. Um corvo mensageiro foi enviado ao seu e-mail com o pergaminho de acesso!
+            </div>
 
-        <div id="status-display">
-        </div>
+            <div class="mesas-container">
+                <div class="mesa-card">
+                    <h3>A Tumba da Aniquilação</h3>
+                    <p>Mestre: Rafael</p>
+                    <p>Sistema: D&D 5e</p>
+                    <p>Horário: Terças-feiras, 19h</p>
+                    <a href="https://buy.stripe.com/test_fZufZhdLVgwa6FqdEl1Fe00" class="cta-button" id="payment-button-1">Forjar Assinatura (R$ 10/mês)</a>
+                </div>
 
-        <div class="spam-alert">
-            <p>📜 <strong>Aviso do Mestre:</strong> O pergaminho (link de convite) será enviado para seu e-mail.</p>
-            <p>Verifique o <strong>baú de Lixo Eletrônico/SPAM</strong> para não perder sua entrada!</p>
+                <div class="mesa-card">
+                    <h3>Aventura Z</h3>
+                    <p>Mestre: Paulo</p>
+                    <p>Sistema: Vampiro 5e</p>
+                    <p>Horário: Sábados, 15h</p>
+                    <a href="https://buy.stripe.com/test_7sY7sLdLV4NsfbW7fX1Fe01" class="cta-button" id="payment-button-2">Forjar Assinatura (R$ 10/mês)</a>
+                </div>
+
+                <div class="mesa-card">
+                    <h3>Outra Aventura</h3>
+                    <p>Mestre: Felipe</p>
+                    <p>Sistema: Tormenta20</p>
+                    <p>Horário: Quartas-feiras, 20h</p>
+                    <a href="https://buy.stripe.com/test_4gM6oH6jtgwa9RCbwd1Fe02" class="cta-button" id="payment-button-3">Forjar Assinatura (R$ 10/mês)</a>
+                </div>
+
+                <div class="mesa-card">
+                    <h3>Aventura W</h3>
+                    <p>Mestre: Matheus</p>
+                    <p>Sistema: Cyberpunk RED</p>
+                    <p>Horário: Sextas-feiras, 21h</p>
+                    <a href="COLOQUE_O_LINK_DE_PAGAMENTO_DA_MESA_4_AQUI" class="cta-button" id="payment-button-4">Forjar Assinatura (R$ 10/mês)</a>
+                </div>
+                </div>
+
+            <div class="aviso">
+                <p><strong>Aviso do Mestre:</strong> O pergaminho (link de convite) será enviado para seu e-mail. Verifique o Baú de Lixo Eletrónico/SPAM para não perder sua entrada!</p>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer>
+        <p>© 2025 RPG Next. Todos os direitos reservados. Forjado nos fogos da imaginação.</p>
+    </footer>
 
     <script>
-        const discordLoginButton = document.getElementById('discord-login-button');
-        const checkoutButton = document.getElementById('checkout-button');
-        const userStatusDiv = document.getElementById('user-status');
-        const statusDisplayDiv = document.getElementById('status-display');
-        const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get('status');
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const username = urlParams.get('username');
 
-        function displayStatusMessage(status) {
-            let message = '';
-            let className = '';
+            const authButton = document.getElementById('auth-button');
+            const welcomeMessage = document.getElementById('welcome-message');
+            const usernameSpan = document.getElementById('username');
+
+            if (username) {
+                authButton.style.display = 'none'; 
+                welcomeMessage.style.display = 'block';
+                usernameSpan.textContent = username; 
+            }
 
             if (status === 'success') {
-                message = '✨ Portal Ativado! O pagamento foi selado. Um corvo mensageiro foi enviado ao seu e-mail com o pergaminho de acesso (verifique o Lixo Eletrônico!).';
-                className = 'status-success';
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
 
-                if (checkoutButton) {
-                    checkoutButton.innerText = "Acesso Desbloqueado";
-                    checkoutButton.disabled = true;
-                    checkoutButton.classList.add('button-success'); 
-                }
-
-            } else if (status === 'cancel') {
-                message = '⚔️ Aventura Pausada. Você guardou sua espada por enquanto. Os portais estarão fechados até seu retorno.';
-                className = 'status-cancel';
-            }
-
-            if (message) {
-                statusDisplayDiv.innerHTML = `<div class="status-message ${className}">${message}</div>`;
-            }
-        }
-
-        window.onload = async () => {
-            if (status) {
-                displayStatusMessage(status);
-            }
-
-            try {
-                const response = await fetch('/get-user-status');
-                const data = await response.json();
-
-                if (data.loggedIn) {
-                    userStatusDiv.innerHTML = `<p>Saudações, <strong>${data.user.username}</strong>! Sua identidade foi confirmada.</p><p>Agora, ative sua Pedra Rúnica (Assinatura) para abrir os portais das mesas.</p>`;
-                    discordLoginButton.style.display = 'none'; 
-                    
-                    if (status !== 'success') {
-                         checkoutButton.disabled = false; 
-                    }
-                }
-            } catch (error) {
-                console.error("Erro ao verificar status do usuário:", error);
-                userStatusDiv.innerHTML = "<p>Ocorreu um erro ao contatar a guilda. Tente recarregar a página.</p>";
+                const paymentButtons = document.querySelectorAll('.mesa-card .cta-button');
+                paymentButtons.forEach(button => {
+                    button.disabled = true;
+                    button.textContent = 'Assinatura Forjada!';
+                    button.style.backgroundColor = '#555';
+                    button.style.borderColor = '#555';
+                    button.style.color = '#999';
+                    button.style.cursor = 'not-allowed';
+                });
             }
         };
-
-        discordLoginButton.addEventListener('click', () => {
-            window.location.href = '/auth/discord';
-        });
-        
-        checkoutButton.addEventListener('click', async () => {
-            try {
-                const response = await fetch('/create-checkout-session', { method: 'POST' });
-                const session = await response.json();
-                
-                if (session.url) {
-                    window.location.href = session.url; 
-                } else {
-                    alert(session.error.message);
-                }
-            } catch (error) {
-                console.error("Erro ao criar sessão de checkout:", error);
-            }
-        });
     </script>
+
 </body>
 </html>
