@@ -4,126 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPG Next - Portal da Guilda</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
 
         body {
-            background-color: #121212;
-            color: #ccc;
+            background: #0f0f0f;
+            color: #d4d4d4;
             font-family: 'Lato', sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
         }
 
-        h1, h2, h3, .cta-button, header a {
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            color: #D4AF37;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
+        /* HEADER */
         header {
-            background-color: #1a1a1a;
+            background: #111;
             padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #D4AF37;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        header .logo { font-size: 1.8em; text-decoration: none; }
-
-        header nav a {
-            font-size: 1em;
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #D4AF37;
             text-decoration: none;
+        }
+
+        nav a {
             margin-left: 20px;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-            transition: color 0.3s, border-color 0.3s;
+            text-decoration: none;
+            color: #D4AF37;
+            font-weight: 700;
+            transition: 0.3s;
+            padding: 6px 10px;
         }
 
-        header nav a:hover {
+        nav a:hover {
             color: #fff;
-            border-color: #D4AF37;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        /* HERO */
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+        }
 
-        .hero { padding: 60px 0; }
-
-        .hero h1 { font-size: 3.5em; margin-bottom: 20px; }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #D4AF37;
+        }
 
         .subtitle {
-            font-size: 1.2em; 
-            color: #fff;
+            font-size: 1.3rem;
             max-width: 600px;
-            margin: 0 auto 30px auto;
+            margin: 20px auto;
+            color: #e8e8e8;
         }
 
         .cta-button {
-            display: inline-block;
             background-color: #D4AF37;
-            color: #1a1a1a;
-            padding: 15px 30px;
-            text-decoration: none;
+            color: #111;
+            padding: 15px 35px;
             border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
             cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
         }
 
         .cta-button:hover {
-            background-color: #f0c84b;
+            background-color: #f0c75e;
             transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            box-shadow: 0px 4px 10px rgba(212,175,55,0.4);
         }
 
         .cta-button.secondary {
-            background-color: transparent;
+            background: transparent;
             color: #D4AF37;
             border: 2px solid #D4AF37;
         }
 
         .cta-button.secondary:hover {
-            background-color: #D4AF37;
-            color: #1a1a1a;
+            background: #D4AF37;
+            color: #111;
         }
 
-        .steps { background-color: #1a1a1a; padding: 40px; border-radius: 8px; margin: 40px 0; }
+        /* STEPS */
+        .steps {
+            background: #111;
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
 
-        .steps h2 { font-size: 2.5em; margin-bottom: 30px; }
+        .steps h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #D4AF37;
+            margin-bottom: 30px;
+        }
 
-        .steps-container {
+        .step-list {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap; gap: 20px;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
-        .step-card { flex-basis: 30%; min-width: 250px; }
+        .step {
+            font-size: 1.2rem;
+            background: #1b1b1b;
+            padding: 20px 30px;
+            border-radius: 8px;
+            border: 1px solid #D4AF37;
+            width: 260px;
+        }
+
+        /* MESAS */
+        #mesas {
+            padding: 60px 20px;
+            text-align: center;
+            display: none;
+        }
+
+        #mesas h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #D4AF37;
+            margin-bottom: 40px;
+        }
+
+        .mesas-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
 
         .mesa-card {
-            background-color: #1a1a1a;
-            border: 2px solid #D4AF37;
-            border-radius: 8px;
-            padding: 20px;
+            background: #151515;
             width: 300px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+            padding: 20px;
             text-align: left;
+            transition: 0.3s;
         }
-        .mesa-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(212,175,55,0.2); }
+
+        .mesa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(212,175,55,0.3);
+        }
+
+        .mesa-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #D4AF37;
+            margin-bottom: 10px;
+        }
 
         footer {
-            text-align: center;
-            padding: 30px;
+            background: #111;
+            color: #aaa;
+            padding: 25px;
             margin-top: 40px;
-            background-color: #1a1a1a;
-            border-top: 1px solid #333;
-            font-size: 0.9em;
+            text-align: center;
+            border-top: 2px solid #333;
         }
     </style>
 </head>
@@ -131,120 +191,110 @@
 <body>
 
 <header>
-    <a href="#" class="logo">RPG NEXT</a>
+    <a class="logo">RPG NEXT</a>
     <nav>
-        <a href="#aventuras">Ver Mesas</a>
-        <a href="https://discord.gg/SEU_LINK" target="_blank">Comunidade</a>
+        <a href="#mesas">Mesas</a>
+        <a href="https://discord.gg/SEU_LINK" target="_blank">Discord</a>
     </nav>
 </header>
 
-<main>
+<section class="hero">
+    <h1>O PORTAL DA GUILDA</h1>
+    <p class="subtitle">Aventureiro, autentique-se com o Discord antes de forjar sua assinatura.</p>
 
-    <div class="hero container">
-        <h1>O PORTAL DA GUILDA</h1>
-        <p class="subtitle">
-            Aventureiro, autentique-se com o Discord antes de forjar sua assinatura!
-        </p>
+    <a id="auth-button" href="/auth/discord" class="cta-button secondary">Autenticar com Discord</a>
 
-        <a href="/auth/discord" class="cta-button secondary" id="auth-button">Autenticar com Discord</a>
-
-        <div id="welcome-message" style="display: none;">
-            <h2>Saudações, <span id="username">Aventureiro</span>!</h2>
-            <p class="subtitle">Agora escolha sua mesa e abra os portais!</p>
-        </div>
+    <div id="welcome" style="display:none; margin-top:30px;">
+        <h2 style="color:#D4AF37; font-family:'Cinzel', serif;">Saudações, <span id="username"></span>!</h2>
+        <p class="subtitle">Agora escolha sua mesa e abra os portais.</p>
     </div>
+</section>
 
-    <div class="steps container">
-        <h2>Sua Jornada</h2>
-        <div class="steps-container">
-            <div class="step-card"><h3>1. Autentique-se</h3></div>
-            <div class="step-card"><h3>2. Escolha a Mesa</h3></div>
-            <div class="step-card"><h3>3. Forje sua Assinatura</h3></div>
-        </div>
+<section class="steps">
+    <h2>Sua Jornada</h2>
+    <div class="step-list">
+        <div class="step">1. Autentique-se</div>
+        <div class="step">2. Escolha sua Mesa</div>
+        <div class="step">3. Forje sua Assinatura</div>
     </div>
+</section>
 
-    <div class="container" id="aventuras" style="display:none;">
-        <h2>Mesas Disponíveis</h2>
+<section id="mesas">
+    <h2>Mesas Disponíveis</h2>
 
-        <div class="mesas-container">
+    <div class="mesas-container">
 
-            <div class="mesa-card">
-                <h3>A Tumba da Aniquilação</h3>
-                <p>Mestre: Rafael</p>
-                <p>Sistema: D&D 5e</p>
-                <p>Horário: Terças, 19h</p>
-                <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
-            </div>
-
-            <div class="mesa-card">
-                <h3>Aventura Z</h3>
-                <p>Mestre: Paulo</p>
-                <p>Sistema: Vampiro 5e</p>
-                <p>Horário: Sábados, 15h</p>
-                <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
-            </div>
-
-            <div class="mesa-card">
-                <h3>Outra Aventura</h3>
-                <p>Mestre: Felipe</p>
-                <p>Sistema: Tormenta20</p>
-                <p>Horário: Quartas, 20h</p>
-                <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
-            </div>
-
-            <div class="mesa-card">
-                <h3>Aventura W</h3>
-                <p>Mestre: Matheus</p>
-                <p>Sistema: Cyberpunk RED</p>
-                <p>Horário: Quintas, 20h</p>
-                <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
-            </div>
-
+        <div class="mesa-card">
+            <h3>A Tumba da Aniquilação</h3>
+            <p>Mestre: Rafael</p>
+            <p>Sistema: D&D 5e</p>
+            <p>Terças • 19h</p>
+            <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
         </div>
-    </div>
 
-</main>
+        <div class="mesa-card">
+            <h3>Aventura Z</h3>
+            <p>Mestre: Paulo</p>
+            <p>Sistema: Vampiro 5e</p>
+            <p>Sábados • 15h</p>
+            <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
+        </div>
+
+        <div class="mesa-card">
+            <h3>Outra Aventura</h3>
+            <p>Mestre: Felipe</p>
+            <p>Sistema: Tormenta20</p>
+            <p>Quartas • 20h</p>
+            <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
+        </div>
+
+    </div>
+</section>
 
 <footer>
     © 2025 RPG Next — Forjado nos fogos da imaginação.
 </footer>
 
 <script>
-window.onload = async function() {
-    const authButton = document.getElementById('auth-button');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const aventuras = document.getElementById('aventuras');
-    const usernameSpan = document.getElementById('username');
+/* --- Captura do Discord ID vinda pela URL --- */
+const params = new URLSearchParams(window.location.search);
+if (params.get("discord_id")) {
+    localStorage.setItem("discord_id", params.get("discord_id"));
+    localStorage.setItem("username", params.get("username"));
+}
 
-    // Verificar login
-    const response = await fetch('/get-user-status');
-    const data = await response.json();
+/* --- Estado da página --- */
+window.onload = () => {
+    const discordId = localStorage.getItem("discord_id");
+    const username = localStorage.getItem("username");
 
-    if (data.loggedIn) {
-        authButton.style.display = 'none';
-        welcomeMessage.style.display = 'block';
-        aventuras.style.display = 'block';
-        usernameSpan.textContent = data.user.username;
+    if (discordId) {
+        document.getElementById("auth-button").style.display = "none";
+        document.getElementById("welcome").style.display = "block";
+        document.getElementById("mesas").style.display = "block";
+        document.getElementById("username").innerText = username;
     }
 };
 
-// Botões de pagamento
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.payment-button').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const res = await fetch('/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
+/* --- Botões de pagamento --- */
+document.querySelectorAll(".payment-button").forEach(btn => {
+    btn.addEventListener("click", async () => {
 
-            const data = await res.json();
+        const discordId = localStorage.getItem("discord_id");
 
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                alert("Você precisa estar autenticado com o Discord!");
-            }
+        if (!discordId) {
+            alert("Você precisa autenticar com o Discord primeiro!");
+            return;
+        }
+
+        const res = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ discordId })
         });
+
+        const data = await res.json();
+        if (data.url) window.location.href = data.url;
     });
 });
 </script>
