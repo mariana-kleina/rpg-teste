@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPG Next - Portal da Guilda</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
@@ -91,6 +92,7 @@
             border-radius: 5px;
             font-size: 1.1em;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -125,7 +127,7 @@
             border-radius: 8px;
             margin: 40px 0;
         }
-        
+
         .steps h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
@@ -220,7 +222,6 @@
             margin-top: 20px;
         }
 
-        /* --- Rodapé --- */
         footer {
             text-align: center;
             padding: 30px;
@@ -231,26 +232,27 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <a href="#" class="logo">RPG NEXT</a>
         <nav>
             <a href="#aventuras">Ver Mesas</a>
-            <a href="https://discord.gg/SEU_LINK_PERMANENTE" target="_blank">Comunidade</a>
+            <a href="https://discord.gg/QgqbCDgT" target="_blank">Comunidade</a>
         </nav>
     </header>
 
     <main>
         <div class="hero container">
             <h1>O PORTAL DA GUILDA</h1>
-            <p class="subtitle">Aventureiro, a sua saga está prestes a começar. Autentique-se com a sua conta do Discord e forje a sua assinatura para entrar nas mesas lendárias do RPG Next.</p>
+            <p class="subtitle">Aventureiro, autentique-se com o Discord para abrir as portas das mesas lendárias.</p>
             
             <a href="/auth/discord" class="cta-button secondary" id="auth-button">Autenticar com Discord</a>
             
             <div id="welcome-message" style="display: none;">
                 <h2>Saudações, <span id="username">Aventureiro</span>!</h2>
-                <p class="subtitle">Sua identidade foi confirmada. Agora, escolha uma aventura abaixo e forje sua assinatura para abrir os portais das mesas.</p>
+                <p class="subtitle">Sua identidade foi confirmada! Agora escolha sua aventura.</p>
             </div>
         </div>
 
@@ -260,15 +262,15 @@
                 <div class="steps-container">
                     <div class="step-card">
                         <h3>1. Autentique-se</h3>
-                        <p>Clique no botão acima para ligar a sua conta do Discord ao nosso portal.</p>
+                        <p>Conecte sua conta do Discord ao portal.</p>
                     </div>
                     <div class="step-card">
-                        <h3>2. Forje sua Assinatura</h3>
-                        <p>Escolha uma das mesas lendárias abaixo e complete o pagamento seguro via Stripe.</p>
+                        <h3>2. Escolha sua Mesa</h3>
+                        <p>Selecione uma aventura e complete o pagamento seguro.</p>
                     </div>
                     <div class="step-card">
-                        <h3>3. Junte-se à Guilda</h3>
-                        <p>Receberá um e-mail com o link do Discord. O seu cargo será atribuído automaticamente!</p>
+                        <h3>3. Entre na Guilda</h3>
+                        <p>O convite será enviado automaticamente para seu e-mail.</p>
                     </div>
                 </div>
             </div>
@@ -277,19 +279,19 @@
         <div class="aventuras container" id="aventuras" style="display: none;">
             
             <h2>Mesas Disponíveis</h2>
-            
+
             <div class="success-message" id="success-message">
-                ⚡ Portal Ativado! O pagamento foi selado. Um corvo mensageiro foi enviado ao seu e-mail com o pergaminho de acesso!
+                ⚡ Portal Ativado! O pagamento foi selado. Verifique seu e-mail para receber o convite da mesa!
             </div>
             
             <div class="mesas-container">
-                
+
                 <div class="mesa-card">
                     <h3>A Tumba da Aniquilação</h3>
                     <p>Mestre: Rafael</p>
                     <p>Sistema: D&D 5e</p>
                     <p>Horário: Terças-feiras, 19h</p>
-                    <a href="https://buy.stripe.com/test_fZufZhdLVgwa6FqdEl1Fe00" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
+                    <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
                 </div>
 
                 <div class="mesa-card">
@@ -297,7 +299,7 @@
                     <p>Mestre: Paulo</p>
                     <p>Sistema: Vampiro 5e</p>
                     <p>Horário: Sábados, 15h</p>
-                    <a href="https://buy.stripe.com/test_7sY7sLdLV4NsfbW7fX1Fe01" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
+                    <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
                 </div>
 
                 <div class="mesa-card">
@@ -305,7 +307,7 @@
                     <p>Mestre: Felipe</p>
                     <p>Sistema: Tormenta20</p>
                     <p>Horário: Quartas-feiras, 20h</p>
-                    <a href="https://buy.stripe.com/test_4gM6oH6jtgwa9RCbwd1Fe02" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
+                    <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
                 </div>
 
                 <div class="mesa-card">
@@ -313,19 +315,19 @@
                     <p>Mestre: Matheus</p>
                     <p>Sistema: Cyberpunk RED</p>
                     <p>Horário: Quintas, 20h</p>
-                    <a href="https://buy.stripe.com/test_00w28rePZ3Jod3OeIp1Fe04" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
+                    <button class="cta-button payment-button">Forjar Assinatura (R$ 10/mês)</button>
                 </div>
 
             </div>
 
             <div class="aviso">
-                <p><strong>Aviso do Mestre:</strong> O pergaminho (link de convite) será enviado para seu e-mail. Verifique o Baú de Lixo Eletrônico/SPAM para não perder sua entrada!</p>
+                <p><strong>Aviso:</strong> O convite será enviado ao seu e-mail. Verifique também o SPAM.</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>© 2025 RPG Next. Todos os direitos reservados. Forjado nos fogos da imaginação.</p>
+        <p>© 2025 RPG Next. Todos os direitos reservados.</p>
     </footer>
 
     <script>
@@ -334,44 +336,59 @@
             const status = urlParams.get('status');
             const username = urlParams.get('username');
             const discord_id = urlParams.get('discord_id'); 
+
             const authButton = document.getElementById('auth-button');
             const welcomeMessage = document.getElementById('welcome-message');
             const usernameSpan = document.getElementById('username');
-            
             const aventurasContainer = document.getElementById('aventuras');
 
+            // Mostrar mesas ao estar autenticado
             if (username && discord_id) {
                 authButton.style.display = 'none';
-                
                 welcomeMessage.style.display = 'block';
                 usernameSpan.textContent = username;
-                
                 aventurasContainer.style.display = 'block';
-
-                const paymentLinks = document.querySelectorAll('.payment-link');
-                paymentLinks.forEach(link => {
-                    const baseUrl = link.href;
-                    link.href = `${baseUrl}?client_reference_id=${discord_id}`;
-                });
             }
 
+            // Mensagem do Stripe
             if (status === 'success') {
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
-
                 aventurasContainer.style.display = 'block'; 
-
-                const paymentButtons = document.querySelectorAll('.payment-link');
-                paymentButtons.forEach(button => {
-                    button.disabled = true;
-                    button.textContent = 'Assinatura Forjada!';
-                    button.style.backgroundColor = '#555';
-                    button.style.borderColor = '#555';
-                    button.style.color = '#999';
-                    button.style.cursor = 'not-allowed';
-                });
             }
+
+            // Botões de pagamento
+            const paymentButtons = document.querySelectorAll(".payment-button");
+            paymentButtons.forEach(button => {
+                button.addEventListener("click", async () => {
+
+                    // Impede pagamento sem login
+                    if (!username || !discord_id) {
+                        alert("⚠️ Você precisa autenticar com o Discord antes de assinar.");
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch("/create-checkout-session", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" }
+                        });
+
+                        const data = await response.json();
+
+                        if (data.url) {
+                            window.location.href = data.url;
+                        } else {
+                            alert("Erro ao iniciar pagamento.");
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert("Erro ao conectar com o servidor.");
+                    }
+                });
+            });
         };
     </script>
+
 </body>
 </html>
