@@ -3,33 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG Next - Portal da Guilda</title>
+    <title>Mestres de Aluguel RPG - Portal da Guilda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- Reset Básico --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #121212; color: #ccc; font-family: 'Lato', sans-serif; line-height: 1.6; min-height: 100vh; }
+
+        /* --- Fontes Temáticas --- */
         h1, h2, h3, .cta-button, header a { font-family: 'Cinzel', serif; font-weight: 700; color: #D4AF37; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
+
+        /* --- Cabeçalho --- */
         header { background-color: #1a1a1a; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #D4AF37; }
-        header .logo { font-size: 1.8em; text-decoration: none; }
+        header .logo { font-size: 1.8em; text-decoration: none; text-transform: uppercase; }
         header nav a { font-size: 1em; text-decoration: none; margin-left: 20px; padding: 5px 10px; border: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
         header nav a:hover { color: #fff; border-color: #D4AF37; }
+
+        /* --- Conteúdo Principal e Container --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        /* --- Secção Hero (Boas-vindas) --- */
         .hero { padding: 60px 0; }
         .hero h1 { font-size: 3.5em; margin-bottom: 20px; }
         .hero .subtitle { font-size: 1.2em; color: #fff; max-width: 600px; margin: 0 auto 30px auto; }
+
+        /* --- Botões --- */
         .cta-button { display: inline-block; background-color: #D4AF37; color: #1a1a1a; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1em; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; }
         .cta-button:hover { background-color: #f0c84b; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
         .cta-button.secondary { background-color: transparent; color: #D4AF37; border: 2px solid #D4AF37; }
         .cta-button.secondary:hover { background-color: #D4AF37; color: #1a1a1a; }
         .cta-button:disabled { background-color: #555; border-color: #555; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* --- Secção de Passos --- */
         .steps { background-color: #1a1a1a; padding: 40px; border-radius: 8px; margin: 40px 0; }
         .steps h2 { font-size: 2.5em; margin-bottom: 30px; }
         .steps-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
         .step-card { flex-basis: 30%; min-width: 250px; }
         .step-card h3 { font-size: 1.4em; color: #fff; margin-bottom: 10px; }
+
+        /* --- Secção das Mesas --- */
         .aventuras h2 { font-size: 2.5em; margin-bottom: 30px; }
         .mesas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 30px; }
         .mesa-card { background-color: #1a1a1a; border: 2px solid #D4AF37; border-radius: 8px; padding: 20px; width: 300px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; }
@@ -37,15 +52,19 @@
         .mesa-card h3 { font-size: 1.5em; margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 10px; }
         .mesa-card p { font-size: 0.9em; color: #ccc; line-height: 1.6; margin-bottom: 10px; }
         .mesa-card .cta-button { display: block; text-align: center; margin-top: 20px; }
+
+        /* --- Avisos e Mensagens --- */
         .aviso { font-size: 0.9em; color: #D4AF37; background-color: rgba(212, 175, 55, 0.05); border: 1px dashed #D4AF37; padding: 15px; border-radius: 5px; margin-top: 30px; }
         .success-message { display: none; background-color: #28a745; color: #fff; padding: 15px 30px; border-radius: 5px; font-size: 1.1em; font-weight: bold; margin-top: 20px; }
+
+        /* --- Rodapé --- */
         footer { text-align: center; padding: 30px; margin-top: 40px; background-color: #1a1a1a; border-top: 1px solid #333; font-size: 0.9em; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">RPG NEXT</a>
+        <a href="#" class="logo">Mestres de Aluguel RPG</a>
         <nav>
             <a href="#aventuras">Ver Mesas</a>
             <a href="https://discord.gg/d9Ym4P9zNw" target="_blank">Comunidade</a>
@@ -55,7 +74,7 @@
     <main>
         <div class="hero container">
             <h1>O PORTAL DA GUILDA</h1>
-            <p class="subtitle">Aventureiro, a sua saga está prestes a começar. Autentique-se com a sua conta do Discord e forje a sua assinatura para entrar nas mesas lendárias do RPG Next.</p>
+            <p class="subtitle">Aventureiro, a sua saga está prestes a começar. Autentique-se com a sua conta do Discord e forje a sua assinatura para entrar nas mesas lendárias do Mestres de Aluguel RPG.</p>
             
             <a href="/auth/discord" class="cta-button secondary" id="auth-button">Autenticar com Discord</a>
             
@@ -123,7 +142,7 @@
                     <p>Mestre: Matheus</p>
                     <p>Sistema: Cyberpunk RED</p>
                     <p>Horário: Sextas-feiras, 21h</p>
-                    <a href="https://buy.stripe.com/test_00w28rePZ3Jod3OeIp1Fe04" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
+                    <a href="SEU_LINK_DA_MESA_4_AQUI" class="cta-button payment-link">Forjar Assinatura (R$ 10/mês)</a>
                 </div>
             </div>
 
@@ -134,7 +153,7 @@
     </main>
 
     <footer>
-        <p>© 2025 RPG Next. Todos os direitos reservados.</p>
+        <p>© 2025 Mestres de Aluguel RPG. Todos os direitos reservados.</p>
     </footer>
 
     <script>
@@ -142,8 +161,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             const status = urlParams.get('status');
             const username = urlParams.get('username');
-            
-            // 1. Pega o discord_id da URL (enviado pelo server.js)
             const discord_id = urlParams.get('discord_id'); 
 
             const authButton = document.getElementById('auth-button');
@@ -151,14 +168,12 @@
             const usernameSpan = document.getElementById('username');
             const aventurasContainer = document.getElementById('aventuras');
 
-            // 2. Lógica de Autenticação
             if (username && discord_id) {
                 authButton.style.display = 'none';
                 welcomeMessage.style.display = 'block';
                 usernameSpan.textContent = username;
                 aventurasContainer.style.display = 'block';
 
-                // 3. INJETA O ID DO DISCORD NOS LINKS DE PAGAMENTO
                 const paymentLinks = document.querySelectorAll('.payment-link');
                 paymentLinks.forEach(link => {
                     const baseUrl = link.href;
@@ -166,7 +181,6 @@
                 });
             }
 
-            // 4. Lógica de Sucesso de Pagamento
             if (status === 'success') {
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
