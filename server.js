@@ -111,3 +111,5 @@ app.post('/create-checkout-session', async (req, res) => {
 app.listen(PORT, () => {
     console.log("Servidor rodando em " + PORT);
 });
+
+// Forçando o servidor a reiniciar com as chaves novas 
