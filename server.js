@@ -4,8 +4,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 const PUBLIC_BASE_URL = 'https://mestresdealuguelrpg.vercel.app';
 
 app.use(cors());
@@ -75,7 +77,7 @@ app.get('/auth/discord/callback', async (req, res) => {
         const username = userResponse.data.username;
         const discordId = userResponse.data.id;
 
-        // ✅ Retorna pro site com os dados
+        // Retorna pro site com os dados
         res.redirect(`/?username=${username}&discord_id=${discordId}`);
 
     } catch (error) {
@@ -85,14 +87,19 @@ app.get('/auth/discord/callback', async (req, res) => {
 });
 
 
-// ---------- 4) Criar sessão de pagamento ----------
+// ---------- 4) Criar sessão de pagamento (ATUALIZADO) ----------
 app.post('/create-checkout-session', async (req, res) => {
-    const discordId = req.body.discordId;
+    const {
+        discordId,
+        id_cargo_discord,
+        nome_aventura,
+        nome_mestre
+    } = req.body;
 
-    if (!discordId) {
+    if (!discordId || !id_cargo_discord) {
         return res.status(400).json({
             error: {
-                message: "Você precisa autenticar com o Discord antes de assinar."
+                message: "Dados obrigatórios não enviados (discordId ou id_cargo_discord)."
             }
         });
     }
@@ -106,9 +113,15 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1
             }],
 
+            // ID DO USUÁRIO DO DISCORD
+            client_reference_id: discordId,
+
+            // METADADOS DA MESA (VÃO PARA O MAKE)
             subscription_data: {
                 metadata: {
-                    discord_id: discordId
+                    id_cargo_discord: id_cargo_discord,
+                    nome_aventura: nome_aventura || 'Não informado',
+                    nome_mestre: nome_mestre || 'Não informado'
                 }
             },
 
