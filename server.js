@@ -6,7 +6,7 @@ const path = require('path');
 const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const PUBLIC_BASE_URL = 'https://rpg-teste.vercel.app';
+const PUBLIC_BASE_URL = 'https://mestresdealuguelrpg.vercel.app/';
 
 app.use(cors());
 app.use(express.json());
