@@ -7,7 +7,6 @@ const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 const PUBLIC_BASE_URL = 'https://mestresdealuguelrpg.vercel.app';
 
 app.use(cors());
@@ -77,7 +76,6 @@ app.get('/auth/discord/callback', async (req, res) => {
         const username = userResponse.data.username;
         const discordId = userResponse.data.id;
 
-        // Retorna pro site com os dados
         res.redirect(`/?username=${username}&discord_id=${discordId}`);
 
     } catch (error) {
@@ -87,19 +85,14 @@ app.get('/auth/discord/callback', async (req, res) => {
 });
 
 
-// ---------- 4) Criar sessão de pagamento (ATUALIZADO) ----------
+// ---------- 4) Criar sessão de pagamento ----------
 app.post('/create-checkout-session', async (req, res) => {
-    const {
-        discordId,
-        id_cargo_discord,
-        nome_aventura,
-        nome_mestre
-    } = req.body;
+    const { discordId, idCargoDiscord, nomeAventura } = req.body;
 
-    if (!discordId || !id_cargo_discord) {
+    if (!discordId || !idCargoDiscord || !nomeAventura) {
         return res.status(400).json({
             error: {
-                message: "Dados obrigatórios não enviados (discordId ou id_cargo_discord)."
+                message: "Dados insuficientes para criar a assinatura."
             }
         });
     }
@@ -113,15 +106,11 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1
             }],
 
-            // ID DO USUÁRIO DO DISCORD
-            client_reference_id: discordId,
-
-            // METADADOS DA MESA (VÃO PARA O MAKE)
             subscription_data: {
                 metadata: {
-                    id_cargo_discord: id_cargo_discord,
-                    nome_aventura: nome_aventura || 'Não informado',
-                    nome_mestre: nome_mestre || 'Não informado'
+                    discord_id: discordId,
+                    id_cargo_discord: idCargoDiscord,
+                    nome_aventura: nomeAventura
                 }
             },
 
