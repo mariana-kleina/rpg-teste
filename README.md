@@ -6,7 +6,7 @@
 
 Um sistema robusto e totalmente automatizado para gestão do ciclo de vida de assinantes em uma comunidade Discord, com frontend hospedado na Vercel e orquestração de backend via **Stripe**, **Node.js** e **Make.com**.
 
-**Link para a Aplicação ao Vivo:** [**https://rpg-teste.vercel.app/**](https://rpg-teste.vercel.app/)
+**Link para a Aplicação ao Vivo:** [**https://mestresdealugelrpg.vercel.app/**](https://mestresdealuguelrpg.vercel.app/)
 
 ---
 
