@@ -100,9 +100,10 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         const sessionStripe = await stripe.checkout.sessions.create({
             mode: 'subscription',
+            allow_promotion_codes: true, // Permite cupons no checkout
 
             line_items: [{
-                price: 'price_1S0sEOI3XjYyzTqFx516rYmp',
+                price: 'price_1SXYtX2KwrC1lbXxtl7lCyNx', 
                 quantity: 1
             }],
 
@@ -122,6 +123,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
     } catch (error) {
         console.error("Erro Stripe:", error);
+        // Devolve o erro para o frontend mostrar o alerta
         res.status(500).json({
             error: { message: error.message }
         });

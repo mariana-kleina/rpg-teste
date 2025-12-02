@@ -131,19 +131,58 @@ window.onload = function() {
 async function criarSessao(idCargoDiscord, nomeAventura) {
     const urlParams = new URLSearchParams(window.location.search);
     const discordId = urlParams.get('discord_id');
+    
+    // Feedback visual no botão
+    const btn = document.querySelector('.cta-button'); 
+    const textoOriginal = btn.innerText;
+    btn.innerText = "Abrindo Portal...";
+    btn.disabled = true;
+    btn.style.opacity = "0.7";
 
-    const response = await fetch('/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            discordId,
-            idCargoDiscord,
-            nomeAventura
-        })
-    });
+    try {
+        const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                discordId,
+                idCargoDiscord,
+                nomeAventura
+            })
+        });
 
-    const data = await response.json();
-    window.location.href = data.url;
+        const data = await response.json();
+
+        // Se houver erro vindo do backend (Ex: Price ID errado)
+        if (data.error) {
+            alert("Erro na Guilda: " + data.error.message);
+            console.error("Erro detalhado:", data);
+            
+            // Restaura o botão
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            return;
+        }
+
+        // Se tiver URL, redireciona
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            alert("Erro desconhecido: O portal não abriu.");
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+            btn.style.opacity = "1";
+        }
+
+    } catch (error) {
+        console.error("Erro de rede:", error);
+        alert("Falha de conexão com o servidor da Guilda.");
+        
+        // Restaura o botão
+        btn.innerText = textoOriginal;
+        btn.disabled = false;
+        btn.style.opacity = "1";
+    }
 }
 </script>
 
