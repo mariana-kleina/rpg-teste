@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato Selado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ccc;
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .box {
+            border: 1px solid #D4AF37;
+            padding: 40px;
+            max-width: 500px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            background: #111;
+        }
+        h1 { color: #D4AF37; font-family: 'Cinzel', serif; margin-bottom: 20px; }
+        .highlight { color: #D4AF37; font-weight: bold; }
+        .btn {
+            display: inline-block; margin-top: 30px; padding: 10px 25px;
+            background: #D4AF37; color: #000; text-decoration: none;
+            font-weight: bold; border-radius: 3px; font-family: 'Cinzel', serif;
+        }
+        .btn:hover { background: #fff; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Oferenda Aceita!</h1>
+        <p>Seu lugar na mesa <span id="mesa" class="highlight"></span> foi garantido.</p>
+        <p>Enviamos um pergaminho para o seu e-mail com o link de acesso.</p>
+        <br>
+        <p style="font-size: 0.9em; opacity: 0.8;">⚠️ Verifique sua caixa de <strong>SPAM</strong> ou Lixo Eletrônico.</p>
+        <a href="/" class="btn">Voltar à Guilda</a>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const mesa = params.get('mesa');
+        if(mesa) document.getElementById('mesa').textContent = `"${mesa}"`;
+    </script>
+</body>
+</html>
