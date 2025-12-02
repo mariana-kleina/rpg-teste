@@ -100,7 +100,9 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         const sessionStripe = await stripe.checkout.sessions.create({
             mode: 'subscription',
-            allow_promotion_codes: true, // Permite cupons no checkout
+            allow_promotion_codes: true,
+            
+            client_reference_id: discordId, 
 
             line_items: [{
                 price: 'price_1SXYtX2KwrC1lbXxtl7lCyNx', 
