@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mestres de Aluguel RPG | Portal da Guilda</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
+    
     <style>
         :root {
-            --primary: #D4AF37;
+            --primary: #D4AF37; /* O Dourado da Guilda */
             --bg-dark: #050505;
             --bg-card: #111;
             --text-main: #e0e0e0;
@@ -20,312 +20,374 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Lato', sans-serif;
-            line-height: 1.6;
+        
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: 'Lato', sans-serif; 
+            line-height: 1.6; 
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
-        h1, h2, h3, .nav-link, .btn-hero, .btn-buy, .logo {
-            font-family: 'Cinzel', serif;
-        }
+        /* Tipografia */
+        h1, h2, h3, .nav-link, .btn-hero, .btn-buy, .logo { font-family: 'Cinzel', serif; }
 
-        header {
-            background: rgba(5, 5, 5, 0.9);
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* --- Header --- */
+        header { 
+            background: rgba(5, 5, 5, 0.9); 
+            padding: 20px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
             border-bottom: 1px solid #333;
-            position: fixed;
-            width: 100%;
-            top: 0;
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
             z-index: 1000;
             backdrop-filter: blur(8px);
         }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .logo { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
             border: 2px solid var(--primary);
             padding: 5px 15px;
         }
-
-        .nav-links a {
-            margin-left: 25px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.9rem;
+        .nav-links a { 
+            margin-left: 25px; 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-size: 0.9rem; 
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* --- Hero Section  --- */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
             text-align: center;
             padding: 0 20px;
             position: relative;
+            
+            background: url(mestres-rpg.jpg) center/cover no-repeat;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
         }
-
+        
         .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--overlay);
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--overlay); /* Escurece a imagem para o texto brilhar */
+            z-index: 0;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-        }
+        .hero-content { z-index: 1; position: relative; max-width: 800px; animation: fadeInUp 1.2s ease-out; }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
+        .hero h1 { 
+            font-size: 3.5rem; 
+            color: var(--primary); 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); 
             text-transform: uppercase;
         }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 40px;
+        .hero p { 
+            font-size: 1.2rem; 
+            color: #ccc; 
+            margin-bottom: 40px; 
+            font-weight: 300;
         }
 
         .btn-hero {
             padding: 16px 40px;
+            background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
-            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            cursor: pointer;
             transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
-
         .btn-hero:hover {
             background: var(--primary);
             color: #000;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
         }
 
-        #welcome-section {
-            display: none;
-            padding-top: 140px;
-            text-align: center;
-        }
-
-        .user-badge {
-            border: 1px solid #444;
+        /* --- Área do Aventureiro (Pós Login) --- */
+        #welcome-section { display: none; padding-top: 140px; text-align: center; animation: fadeIn 1s; }
+        .user-badge { 
+            border: 1px solid #444; 
             background: #111;
-            padding: 10px 30px;
-            display: inline-block;
-            color: var(--primary);
+            padding: 10px 30px; 
+            border-radius: 4px; 
+            display: inline-block; 
+            color: var(--primary); 
             font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
         }
 
-        .grid-section {
-            padding: 60px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: none;
-            flex: 1;
+        /* --- Grid de Mesas --- */
+        .grid-section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; display: none; min-height: 60vh; }
+        .section-title { 
+            text-align: center; 
+            font-size: 2.2rem; 
+            color: var(--text-main); 
+            margin-bottom: 60px; 
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 3px; background: var(--primary); 
+            margin: 15px auto 0;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 60px;
-        }
-
-        .cards-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
+        .cards-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+        
+        /* Card Estilo "Grimório" */
         .rpg-card {
             background: var(--bg-card);
             border: 1px solid #333;
             width: 340px;
+            border-radius: 4px;
             overflow: hidden;
-            transition: 0.3s;
+            transition: 0.4s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .rpg-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
+        .rpg-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary); 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); 
         }
-
-        .card-header {
-            height: 200px;
-            background: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        
+        .card-header { 
+            height: 200px; 
+            background: #222; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #555;
             font-family: 'Cinzel';
-            color: #777;
+            border-bottom: 1px solid #333;
         }
-
-        .card-body {
-            padding: 30px;
-        }
-
-        .card-body h3 {
-            margin-bottom: 15px;
-        }
-
-        .card-detail {
-            display: flex;
-            justify-content: space-between;
+        
+        .card-body { padding: 30px; text-align: left; }
+        .card-body h3 { color: #fff; font-size: 1.4rem; margin-bottom: 15px; line-height: 1.3; }
+        .card-detail { 
+            font-size: 0.95rem; 
+            color: var(--text-muted); 
+            margin-bottom: 8px; 
+            display: flex; 
+            justify-content: space-between; 
             border-bottom: 1px solid #222;
             padding-bottom: 8px;
-            margin-bottom: 8px;
-            color: var(--text-muted);
         }
-
-        .price-tag {
-            display: block;
-            text-align: center;
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin: 25px 0;
+        .card-detail span:last-child { color: #ccc; }
+        
+        .price-tag { 
+            display: block; 
+            text-align: center; 
+            font-size: 1.3rem; 
+            color: var(--primary); 
+            font-weight: bold; 
+            margin: 25px 0 20px 0; 
         }
-
+        
         .btn-buy {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
+            width: 100%; padding: 15px; border: none; 
+            background: var(--primary); color: #050505;
+            font-weight: bold; cursor: pointer; 
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.2s;
         }
+        .btn-buy:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+        .btn-buy:disabled { opacity: 0.5; cursor: not-allowed; background: #555; }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background: #080808;
-            border-top: 1px solid #222;
-            color: #666;
+        /* --- Footer --- */
+        footer { 
+            text-align: center; 
+            padding: 50px 20px; 
+            background-color: #080808; 
+            border-top: 1px solid #222; 
+            color: #666; 
+            font-size: 0.9rem; 
+            margin-top: auto; 
+        }
+        .social-btn {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary);
+            text-decoration: none;
+            border: 1px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+        .social-btn:hover { background: var(--primary); color: #000; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simples mobile hide */
         }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo">Mestres de Aluguel</a>
-    <nav class="nav-links">
-        <a href="https://discord.gg/d9Ym4P9zNw" target="_blank">Discord</a>
-        <a href="https://www.facebook.com/MestresDeAluguelRPG" target="_blank">Facebook</a>
-    </nav>
-</header>
+    <header>
+        <a href="#" class="logo">Mestres de Aluguel</a>
+        <nav class="nav-links">
+            <a href="https://discord.gg/d9Ym4P9zNw" target="_blank">Discord</a>
+            <a href="https://www.facebook.com/MestresDeAluguelRPG" target="_blank">Facebook</a>
+        </nav>
+    </header>
 
-<div id="hero-section" class="hero">
-    <div class="hero-content">
-        <h1>Forje sua Lenda</h1>
-        <p>Encontre mestres experientes e viva aventuras inesquecíveis.</p>
-        <a href="/auth/discord" class="btn-hero">Entrar com Discord</a>
+    <div id="hero-section" class="hero">
+        <div class="hero-content">
+            <h1>Forje sua Lenda</h1>
+            <p>O portal definitivo para mesas de RPG de alta qualidade. Junte-se à guilda, encontre seu mestre e viva aventuras inesquecíveis.</p>
+            <a href="/auth/discord" class="btn-hero">
+                Entrar com Discord
+            </a>
+        </div>
     </div>
+
+    <div id="welcome-section">
+        <div class="user-badge">
+            ⚜️ Saudações, <span id="username-display">Viajante</span>
+        </div>
+    </div>
+
+    <section id="aventuras-section" class="grid-section">
+        <h2 class="section-title">Mesas Disponíveis</h2>
+        
+        <div class="cards-container">
+
+    <!-- MESA 1 -->
+    <div class="rpg-card">
+        <div class="card-header">
+            <span>Curse of Strahd</span>
+        </div>
+        <div class="card-body">
+            <h3>Curse of Strahd: Reloaded</h3>
+            <div class="card-detail"><span>Mestre</span> <span>Arboreal</span></div>
+            <div class="card-detail"><span>Sistema</span> <span>D&D 5e</span></div>
+            <div class="card-detail"><span>Dia</span> <span>Sextas-feiras</span></div>
+            
+            <span class="price-tag">R$ 130 / mês</span>
+
+            <button class="btn-buy" onclick="criarSessao('1443344623908032603', 'Curse of Strahd: Reloaded')">
+                Assinar Contrato
+            </button>
+        </div>
+    </div>
+
+    <!-- MESA 2 -->
+    <div class="rpg-card">
+        <div class="card-header">
+            <span>Ethelon</span>
+        </div>
+        <div class="card-body">
+            <h3>Ethelon: Reinos das Alianças Quebradas</h3>
+            <div class="card-detail"><span>Mestre</span> <span>Berbari</span></div>
+            <div class="card-detail"><span>Sistema</span> <span>D&D 2024</span></div>
+            <div class="card-detail"><span>Frequência</span> <span>2x por mês</span></div>
+
+            <span class="price-tag">R$ 130 / mês</span>
+
+            <button class="btn-buy" onclick="criarSessao('1463336420935729247', 'Ethelon: Reinos das Alianças Quebradas')">
+                Assinar Contrato
+            </button>
+        </div>
+    </div>
+
 </div>
 
-<div id="welcome-section">
-    <div class="user-badge">
-        ⚜️ Saudações, <span id="username-display">Viajante</span>
-    </div>
-</div>
+    </section>
 
-<section id="aventuras-section" class="grid-section">
-    <h2 class="section-title">Mesas Disponíveis</h2>
+    <footer>
+        <p>&copy; 2025 Mestres de Aluguel RPG. Todos os direitos reservados.</p>
+        <a href="https://www.facebook.com/MestresDeAluguelRPG" class="social-btn" target="_blank">
+            Siga-nos no Facebook
+        </a>
+    </footer>
 
-    <div class="cards-container">
+    <script>
+        // Lógica de Frontend
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('username');
+            const discord_id = urlParams.get('discord_id');
 
-        <!-- MESA 1 -->
-        <div class="rpg-card">
-            <div class="card-header">Curse of Strahd</div>
-            <div class="card-body">
-                <h3>Curse of Strahd: Reloaded</h3>
-                <div class="card-detail"><span>Mestre</span><span>Arboreal</span></div>
-                <div class="card-detail"><span>Sistema</span><span>D&D 5e</span></div>
-                <div class="card-detail"><span>Dia</span><span>Sextas-feiras</span></div>
-                <span class="price-tag">R$ 130 / mês</span>
-                <button class="btn-buy"
-                    onclick="criarSessao('1443344623908032603', 'Curse of Strahd: Reloaded')">
-                    Assinar Contrato
-                </button>
-            </div>
-        </div>
+            // Se o usuário voltou do login do Discord
+            if (username && discord_id) {
+                // Remove a Hero inteira para dar foco às mesas
+                const hero = document.getElementById('hero-section');
+                hero.style.display = 'none';
 
-        <!-- MESA 2 -->
-        <div class="rpg-card">
-            <div class="card-header">Ethelon</div>
-            <div class="card-body">
-                <h3>Ethelon: Reinos das Alianças Quebradas</h3>
-                <div class="card-detail"><span>Mestre</span><span>Mestre Berbari</span></div>
-                <div class="card-detail"><span>Sistema</span><span>D&D 2024</span></div>
-                <div class="card-detail"><span>Frequência</span><span>2x por mês</span></div>
-                <span class="price-tag">R$ 130 / mês</span>
-                <button class="btn-buy"
-                    onclick="criarSessao('1463336420935729247', 'Ethelon: Reinos das Alianças Quebradas')">
-                    Assinar Contrato
-                </button>
-            </div>
-        </div>
+                document.getElementById('welcome-section').style.display = 'block';
+                document.getElementById('username-display').textContent = username;
+                document.getElementById('aventuras-section').style.display = 'block';
+            }
+        };
 
-    </div>
-</section>
+        async function criarSessao(idCargoDiscord, nomeAventura) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const discordId = urlParams.get('discord_id');
+            
+            // Efeito visual nos botões
+            const btns = document.querySelectorAll('.btn-buy');
+            btns.forEach(b => {
+                b.innerText = "Conjurando...";
+                b.disabled = true;
+                b.style.opacity = "0.7";
+            });
 
-<footer>
-    <p>&copy; 2025 Mestres de Aluguel RPG</p>
-</footer>
+            try {
+                const response = await fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        discordId,
+                        idCargoDiscord,
+                        nomeAventura
+                    })
+                });
 
-<script>
-    window.onload = function () {
-        const params = new URLSearchParams(window.location.search);
-        const username = params.get('username');
-        const discordId = params.get('discord_id');
+                const data = await response.json();
 
-        if (username && discordId) {
-            document.getElementById('hero-section').style.display = 'none';
-            document.getElementById('welcome-section').style.display = 'block';
-            document.getElementById('aventuras-section').style.display = 'block';
-            document.getElementById('username-display').textContent = username;
+                if (data.error) {
+                    alert("Erro na Guilda: " + data.error.message);
+                    location.reload(); 
+                    return;
+                }
+
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+
+            } catch (error) {
+                console.error("Erro de rede:", error);
+                alert("Falha de conexão com o servidor da Guilda.");
+                location.reload();
+            }
         }
-    };
-
-    async function criarSessao(idCargoDiscord, nomeAventura) {
-        const params = new URLSearchParams(window.location.search);
-        const discordId = params.get('discord_id');
-
-        const response = await fetch('/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ discordId, idCargoDiscord, nomeAventura })
-        });
-
-        const data = await response.json();
-        if (data.url) window.location.href = data.url;
-    }
-</script>
-
+    </script>
 </body>
 </html>
